@@ -1,3 +1,11 @@
+// Cek apakah perangkat mobile
+if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    document.body.innerHTML = "<h1>Halaman ini hanya dapat diakses melalui desktop atau laptop.</h1>";
+    // Hentikan eksekusi kode lebih lanjut
+    throw new Error("Halaman hanya dapat diakses melalui desktop atau laptop.");
+}
+
+// Kode yang sudah ada
 const video = document.getElementById("videoElement");
 const photoCountText = document.getElementById("photoCountText");
 const timerSelect = document.getElementById("timerSelect");
@@ -15,16 +23,13 @@ let selectedEffect = effectSelect.value;
 let photoIndex = 1;
 let capturedPhotos = [];
 
-// Mengatur resolusi video dengan constraints ideal
-navigator.mediaDevices.getUserMedia({
-    video: { width: { ideal: 1280 }, height: { ideal: 720 } }
-})
-.then((stream) => {
-    video.srcObject = stream;
-})
-.catch((err) => {
-    console.error("Error mengakses kamera: " + err);
-});
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+        video.srcObject = stream;
+    })
+    .catch((err) => {
+        console.error("Error mengakses kamera: " + err);
+    });
 
 timerSelect.addEventListener("change", (e) => {
     selectedTimer = parseInt(e.target.value);
@@ -52,7 +57,6 @@ captureBtn.addEventListener("click", () => {
 
     function takeNextPhoto() {
         if (photoIndex > maxPhotos) {
-            // Simpan foto ke localStorage dan alihkan ke frame.html
             localStorage.setItem("capturedPhotos", JSON.stringify(capturedPhotos));
             window.location.href = "frame.html";
             return;
