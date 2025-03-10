@@ -2,6 +2,7 @@ const photos = JSON.parse(localStorage.getItem("capturedPhotos") || "[]");
 const photosWrapper = document.getElementById("photosWrapper");
 const frameContainer = document.getElementById("frameContainer");
 const downloadBtn = document.getElementById("downloadBtn");
+
 photos.slice(0, 4).forEach((src) => {
     const img = document.createElement("img");
     img.src = src;
@@ -29,7 +30,8 @@ document.querySelectorAll(".texture-swatch").forEach((swatch) => {
 });
 
 downloadBtn.addEventListener("click", () => {
-    html2canvas(frameContainer).then((canvas) => {
+    // Opsi scale menyesuaikan dengan devicePixelRatio agar kualitas canvas konsisten
+    html2canvas(frameContainer, { scale: window.devicePixelRatio || 1 }).then((canvas) => {
         const link = document.createElement("a");
         link.download = "my-frame.png";
         link.href = canvas.toDataURL("image/png");
