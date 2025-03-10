@@ -1,40 +1,142 @@
-const photos = JSON.parse(localStorage.getItem("capturedPhotos") || "[]");
-const photosWrapper = document.getElementById("photosWrapper");
-const frameContainer = document.getElementById("frameContainer");
-const downloadBtn = document.getElementById("downloadBtn");
+const video = document.getElementById("videoElement");
+const photoCountText = document.getElementById("photoCountText");
+const timerSelect = document.getElementById("timerSelect");
+const effectSelect = document.getElementById("effectSelect");
+const resetAllBtn = document.getElementById("resetAllBtn");
+const captureBtn = document.getElementById("captureBtn");
+const mirrorToggle = document.getElementById("mirrorToggle");
+const backBtn = document.getElementById("backBtn");
+const photoThumbnails = document.getElementById("photoThumbnails");
+const countdownOverlay = document.getElementById("countdownOverlay");
+let maxPhotos = 4;
+let mirrorEnabled = true;
+let selectedTimer = parseInt(timerSelect.value);
+let selectedEffect = effectSelect.value;
+let photoIndex = 1;
+let capturedPhotos = [];
 
-photos.slice(0, 4).forEach((src) => {
+// Mengatur resolusi video dengan constraints ideal
+navigator.mediaDevices.getUserMedia({
+    video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+})
+.then((stream) => {
+    video.srcObject = stream;
+})
+.catch((err) => {
+    console.error("Error mengakses kamera: " + err);
+});
+
+timerSelect.addEventListener("change", (e) => {
+    selectedTimer = parseInt(e.target.value);
+});
+
+effectSelect.addEventListener("change", (e) => {
+    selectedEffect = e.target.value;
+    applyVideoFilter();
+});
+
+mirrorToggle.addEventListener("change", () => {
+    mirrorEnabled = mirrorToggle.checked;
+    applyVideoFilter();
+});
+
+backBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
+captureBtn.addEventListener("click", () => {
+    captureBtn.disabled = true;
+    photoIndex = 1;
+    capturedPhotos = [];
+    updatePhotoCountText();
+
+    function takeNextPhoto() {
+        if (photoIndex > maxPhotos) {
+            // Simpan foto ke localStorage dan alihkan ke frame.html
+            localStorage.setItem("capturedPhotos", JSON.stringify(capturedPhotos));
+            window.location.href = "frame.html";
+            return;
+        }
+
+        let countdown = selectedTimer;
+        countdownOverlay.style.display = "block";
+        countdownOverlay.textContent = countdown;
+
+        const interval = setInterval(() => {
+            countdown--;
+            if (countdown > 0) {
+                countdownOverlay.textContent = countdown;
+            } else {
+                clearInterval(interval);
+                countdownOverlay.style.display = "none";
+
+                capturePhoto();
+                photoIndex++;
+                if (photoIndex <= maxPhotos) {
+                    updatePhotoCountText();
+                }
+                takeNextPhoto();
+            }
+        }, 1000);
+    }
+
+    takeNextPhoto();
+});
+
+resetAllBtn.addEventListener("click", () => {
+    photoThumbnails.innerHTML = "";
+    capturedPhotos = [];
+    photoIndex = 1;
+    updatePhotoCountText();
+});
+
+function applyVideoFilter() {
+    let filter = "none";
+    switch (selectedEffect) {
+        case "sepia":
+            filter = "sepia(1)";
+            break;
+        case "bw":
+            filter = "grayscale(1)";
+            break;
+        case "vintage":
+            filter = "contrast(1.2) saturate(0.8)";
+            break;
+        case "blur":
+            filter = "contrast(1.5)";
+            break;
+        default:
+            filter = "none";
+    }
+
+    video.style.transform = mirrorEnabled ? "scaleX(-1)" : "none";
+    video.style.filter = filter;
+}
+
+function capturePhoto() {
+    const originalWidth = video.videoWidth;
+    const originalHeight = video.videoHeight;
+    const canvas = document.createElement("canvas");
+    canvas.width = originalWidth;
+    canvas.height = originalHeight;
+    const context = canvas.getContext("2d");
+    if (mirrorEnabled) {
+        context.translate(canvas.width, 0);
+        context.scale(-1, 1);
+    }
+
+    context.drawImage(video, 0, 0, originalWidth, originalHeight);
+    const dataURL = canvas.toDataURL("image/png");
+    capturedPhotos.push(dataURL);
     const img = document.createElement("img");
-    img.src = src;
-    photosWrapper.appendChild(img);
-});
+    img.src = dataURL;
+    img.classList.add("thumbnail");
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("photo-wrapper");
+    wrapper.appendChild(img);
+    photoThumbnails.appendChild(wrapper);
+}
 
-document.querySelectorAll(".color-swatch").forEach((swatch) => {
-    swatch.addEventListener("click", () => {
-        const color = swatch.getAttribute("data-color");
-        frameContainer.style.backgroundColor = color;
-        frameContainer.style.backgroundImage = "none"; 
-    });
-});
-
-document.querySelectorAll(".texture-swatch").forEach((swatch) => {
-    swatch.addEventListener("click", () => {
-        const textureUrl = swatch.getAttribute("data-texture");
-        // Terapkan background texture
-        frameContainer.style.backgroundImage = `url('${textureUrl}')`;
-        frameContainer.style.backgroundSize = "cover";
-        frameContainer.style.backgroundPosition = "center";
-        frameContainer.style.backgroundRepeat = "no-repeat";
-        frameContainer.style.backgroundColor = "transparent";
-    });
-});
-
-downloadBtn.addEventListener("click", () => {
-    // Opsi scale menyesuaikan dengan devicePixelRatio agar kualitas canvas konsisten
-    html2canvas(frameContainer, { scale: window.devicePixelRatio || 1 }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = "my-frame.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
-});
+function updatePhotoCountText() {
+    photoCountText.textContent = `Take Photos (${photoIndex}/${maxPhotos})`;
+}
