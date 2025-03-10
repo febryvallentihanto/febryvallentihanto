@@ -1,8 +1,6 @@
-// Cek apakah perangkat mobile
+// Cek apakah perangkat mobile dan tampilkan pop up
 if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    document.body.innerHTML = "<h1>Halaman ini hanya dapat diakses melalui desktop atau laptop.</h1>";
-    // Hentikan eksekusi kode lebih lanjut
-    throw new Error("Halaman hanya dapat diakses melalui desktop atau laptop.");
+    alert("Halaman ini hanya dapat diakses melalui desktop atau laptop.");
 }
 
 // Kode yang sudah ada
