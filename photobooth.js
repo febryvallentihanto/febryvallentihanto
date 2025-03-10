@@ -52,6 +52,7 @@ captureBtn.addEventListener("click", () => {
 
     function takeNextPhoto() {
         if (photoIndex > maxPhotos) {
+            // Simpan foto ke localStorage dan alihkan ke frame.html
             localStorage.setItem("capturedPhotos", JSON.stringify(capturedPhotos));
             window.location.href = "frame.html";
             return;
