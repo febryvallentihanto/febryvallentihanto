@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose Your Frame</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container py-3">
+        <h2 class="mb-5 text-center">Choose Your Frame</h2>
+        <div class="row gx-2 align-items-center">
+            <div class="col-md-6 d-flex justify-content-center mb-3 mb-md-0">
+                <div id="frameContainer">
+                    <div id="photosWrapper"></div>
+                    <div id="watermark"></div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                <div class="mb-3 text-center">
+                    <h5>Frame Color</h5>
+                    <div class="d-flex justify-content-center align-items-center flex-wrap">
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #5dade2;"
+                            data-color="#5dade2"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #f7dc6f;"
+                            data-color="#f7dc6f"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #e74c3c;"
+                            data-color="#e74c3c"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #58d68d;"
+                            data-color="#58d68d"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #ffffff;"
+                            data-color="#ffffff"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #000000;"
+                            data-color="#000000"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #FF69B4;"
+                            data-color="#FF69B4"></div>
+                        <div class="color-swatch mx-1" style="width: 30px; height: 30px; background: #FF00FF;"
+                            data-color="#FF00FF"></div>
+                    </div>
+                </div>
+                <div class="mb-3 text-center">
+                    <h5>Background Texture</h5>
+                    <div class="d-flex justify-content-center align-items-center flex-wrap">
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern1.jpg'); background-size: cover;"
+                            data-texture="images/pattern1.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern2.jpg'); background-size: cover;"
+                            data-texture="images/pattern2.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern3.jpg'); background-size: cover;"
+                            data-texture="images/pattern3.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern4.jpg'); background-size: cover;"
+                            data-texture="images/pattern4.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern5.jpg'); background-size: cover;"
+                            data-texture="images/pattern5.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern6.jpg'); background-size: cover;"
+                            data-texture="images/pattern6.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern7.jpg'); background-size: cover;"
+                            data-texture="images/pattern7.jpg"></div>
+                        <div class="texture-swatch mx-1"
+                            style="width: 30px; height: 30px; border: 2px solid #ccc; background: url('images/pattern8.jpg'); background-size: cover;"
+                            data-texture="images/pattern8.jpg"></div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <button id="downloadBtn" class="btn btn-success mr-2">
+                        Download
+                    </button>
+                    <a href="photobooth.html" class="btn btn-secondary">
+                        New Photo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="frame.js"></script>
+</body>
+
+</html>

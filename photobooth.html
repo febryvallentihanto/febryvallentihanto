@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Take Photos</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container py-4">
+        <h3 class="text-center mb-4" id="photoCountText" style="font-weight: bold;">
+            Take Photos (1/4)
+        </h3>
+        <div class="row justify-content-center mb-4">
+            <div class="col-auto video-container">
+                <video id="videoElement" autoplay muted playsinline></video>
+                <div id="countdownOverlay"></div>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3 align-items-center">
+            <div class="col-auto d-flex align-items-center">
+                <label for="timerSelect" class="mr-2">Timer</label>
+                <select id="timerSelect" class="form-control">
+                    <option value="3">3s</option>
+                    <option value="5">5s</option>
+                    <option value="10">10s</option>
+                </select>
+            </div>
+            <div class="col-auto d-flex align-items-center">
+                <label for="effectSelect" class="mr-2">Effect</label>
+                <select id="effectSelect" class="form-control">
+                    <option value="none">None</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="bw">B&amp;W</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="blur">Contrast</option>
+                </select>
+            </div>
+            <div class="col-auto d-flex align-items-center ml-3 mirror-container">
+                <label for="mirrorToggle" class="mr-2">Mirror</label>
+                <label class="switch">
+                    <input type="checkbox" id="mirrorToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3 btn-row">
+            <div class="col-auto">
+                <button id="resetAllBtn" class="btn btn-danger">Reset</button>
+            </div>
+            <div class="col-auto">
+                <button id="captureBtn" class="btn btn-primary">Capture</button>
+            </div>
+            <div class="col-auto">
+                <button id="backBtn" class="btn btn-secondary">Back</button>
+            </div>
+        </div>
+        <div id="photoThumbnails" class="mt-4"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="photobooth.js"></script>
+</body>
+</html>

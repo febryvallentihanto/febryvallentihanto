@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, sans-serif;
+    background: url('images/foto.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.btn-custom {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+
+.watermark-start {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0.5rem 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-family: Arial;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.video-container {
+    position: relative;
+    display: inline-block;
+}
+
+#videoElement {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#countdownOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: none;
+}
+
+.none {
+    filter: none !important;
+}
+
+.vibrant {
+    filter: saturate(1.4) brightness(1.15) contrast(1.05);
+}
+
+.sepia {
+    filter: sepia(100%);
+}
+
+.bw {
+    filter: grayscale(100%);
+}
+
+.vintage {
+    filter: contrast(1.2) saturate(0.8) sepia(30%);
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+.mirror-enabled {
+    transform: scaleX(-1);
+}
+
+.mirror-disabled {
+    transform: scaleX(1);
+}
+
+.photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.thumbnail {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#photoThumbnails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+#photoThumbnails img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+}
+
+#frameContainer {
+    width: 250px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    background-color: #fff;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #66bb6a;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+#photosWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#photosWrapper img {
+    width: 90%;
+    max-width: 220px;
+    margin: 5px 0;
+}
+
+.color-swatch,
+.texture-swatch {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border: 2px solid #ccc;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-row button {
+    width: 120px;
+    height: 40px;
+}
+
+@media (max-width: 576px) {
+    select.form-control {
+        font-size: 0.8rem;
+    }
+
+    .mirror-container {
+        margin-top: 15px;
+    }
+}
