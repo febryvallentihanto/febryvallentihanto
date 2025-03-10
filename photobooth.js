@@ -15,13 +15,16 @@ let selectedEffect = effectSelect.value;
 let photoIndex = 1;
 let capturedPhotos = [];
 
-navigator.mediaDevices.getUserMedia({ video: true })
-    .then((stream) => {
-        video.srcObject = stream;
-    })
-    .catch((err) => {
-        console.error("Error mengakses kamera: " + err);
-    });
+// Mengatur resolusi video dengan constraints ideal
+navigator.mediaDevices.getUserMedia({
+    video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+})
+.then((stream) => {
+    video.srcObject = stream;
+})
+.catch((err) => {
+    console.error("Error mengakses kamera: " + err);
+});
 
 timerSelect.addEventListener("change", (e) => {
     selectedTimer = parseInt(e.target.value);
@@ -132,6 +135,7 @@ function capturePhoto() {
     wrapper.appendChild(img);
     photoThumbnails.appendChild(wrapper);
 }
+
 function updatePhotoCountText() {
     photoCountText.textContent = `Take Photos (${photoIndex}/${maxPhotos})`;
 }
